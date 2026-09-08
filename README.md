@@ -109,4 +109,4 @@ https://api.telegram.org/bot<TOKEN>/getUpdates
 
 ## الترخيص
 
-[MIT](LICENSE) — © 2026 ريم الفضلي
+[MIT](LICENSE) — © 2026 م. ريم الفضلي
