@@ -1,0 +1,370 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<title>الجسر الصوتي</title>
+<style>
+  :root{
+    --bg:#0a0e16; --bg-2:#111827; --bg-3:#0d1420; --ink:#eef2fb; --muted:#9aa7c2;
+    --line:#212c40; --line-2:#2c3a54;
+    --tg:#39b7ff; --tg-soft:rgba(57,183,255,.12);
+    --voice:#ff7a45; --voice-soft:rgba(255,122,69,.12);
+    --ok:#33d69f; --ok-soft:rgba(51,214,159,.12);
+    --radius:16px; --maxw:44rem;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"IBM Plex Sans Arabic","Segoe UI",system-ui,sans-serif;
+    font-size:17px; line-height:1.9;
+    background-image:radial-gradient(1200px 500px at 80% -10%, rgba(57,183,255,.10), transparent 60%),
+                     radial-gradient(900px 500px at 0% 0%, rgba(255,122,69,.07), transparent 55%);
+    background-repeat:no-repeat;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:clamp(22px,5vw,60px) clamp(16px,4vw,28px) 90px}
+  a{color:var(--tg); text-underline-offset:3px}
+  b,strong{color:#fff; font-weight:600}
+  code,kbd{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.9em}
+  kbd{background:#1b2436; border:1px solid var(--line-2); border-radius:6px; padding:1px 7px; color:var(--ink)}
+  p code,li code,dd code{background:#1b2436; border:1px solid var(--line-2); border-radius:6px;
+    padding:1px 6px; color:#dbe6ff; direction:ltr; display:inline-block; line-height:1.4}
+
+  /* header */
+  header{margin-bottom:30px}
+  .eyebrow{font-family:"Cairo",sans-serif; font-weight:700; font-size:.8rem; letter-spacing:.16em;
+    color:var(--voice); margin:0 0 12px}
+  h1{font-family:"Cairo",sans-serif; font-weight:800; font-size:clamp(1.95rem,6.4vw,2.75rem);
+    line-height:1.22; margin:0 0 14px; text-wrap:balance;
+    background:linear-gradient(100deg,#fff 30%, var(--tg)); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .lede{font-size:1.12rem; color:var(--muted); margin:0; max-width:38rem}
+  .byline{font-family:"Cairo",sans-serif; font-weight:700; font-size:.95rem; color:var(--voice);
+    margin:18px 0 0; letter-spacing:.02em}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:22px 0 0; padding:0; list-style:none}
+  .chips li{font-family:"Cairo",sans-serif; font-weight:600; font-size:.83rem;
+    background:var(--bg-2); border:1px solid var(--line); border-radius:999px; padding:6px 14px; color:var(--muted)}
+
+  .solved{background:var(--bg-2); border:1px solid var(--line); border-inline-start:4px solid var(--ok);
+    border-radius:14px; padding:18px 20px; margin:26px 0; line-height:1.8}
+  .solved b{color:var(--ok)}
+
+  h2{font-family:"Cairo",sans-serif; font-weight:800; font-size:1.5rem; line-height:1.3;
+    margin:56px 0 6px; color:#fff}
+  h2 .kicker{display:block; font-size:.78rem; letter-spacing:.16em; color:var(--tg);
+    font-weight:700; margin-bottom:4px}
+  h2 + .sec-intro{color:var(--muted); margin:0 0 8px}
+  .pill{display:inline-block; font-family:"Cairo",sans-serif; font-weight:700; font-size:.72rem;
+    letter-spacing:.06em; padding:3px 10px; border-radius:999px; margin-inline-start:10px;
+    background:var(--ok-soft); color:var(--ok); border:1px solid rgba(51,214,159,.35); vertical-align:middle}
+
+  /* flow diagram */
+  .flow{background:var(--bg-2); border:1px solid var(--line); border-radius:var(--radius); padding:20px 16px; margin:16px 0}
+  .flow svg{width:100%; height:auto; display:block}
+  .flow figcaption{font-size:.9rem; color:var(--muted); text-align:center; margin-top:10px; font-family:"Cairo",sans-serif}
+
+  /* steps */
+  ol.steps{list-style:none; counter-reset:s; margin:14px 0 0; padding:0}
+  ol.steps>li{counter-increment:s; position:relative; padding:22px 0; border-bottom:1px solid var(--line)}
+  ol.steps>li:last-child{border-bottom:0}
+  .st-head{display:flex; align-items:baseline; gap:12px; margin-bottom:4px}
+  .st-num{flex:0 0 auto; width:2.15rem; height:2.15rem; border-radius:50%;
+    display:grid; place-items:center; transform:translateY(.35rem);
+    font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:1rem;
+    background:var(--ok-soft); color:var(--ok); border:1px solid rgba(51,214,159,.4)}
+  .st-num::before{content:counter(s)}
+  .manual .st-num{background:var(--voice-soft); color:var(--voice); border-color:rgba(255,122,69,.4)}
+  .st-head h3{font-family:"Cairo",sans-serif; font-weight:800; font-size:1.28rem; margin:0; line-height:1.4}
+  ol.steps p{margin:.5rem 0}
+  ol.steps ul{margin:.5rem 0; padding-inline-start:1.35rem}
+  ol.steps ul li{margin:.4rem 0}
+  ol.steps ol{margin:.4rem 0; padding-inline-start:1.5rem}
+  ol.steps ol li{margin:.25rem 0}
+
+  /* code */
+  .code{margin:14px 0; border-radius:12px; overflow:hidden; border:1px solid var(--line-2)}
+  .code .bar{display:flex; align-items:center; justify-content:space-between;
+    background:#0b111d; border-bottom:1px solid rgba(255,255,255,.06); padding:7px 12px}
+  .code .name{font-family:"IBM Plex Mono",monospace; font-size:.76rem; color:#7f8db0; direction:ltr}
+  .code button{font-family:"Cairo",sans-serif; font-weight:600; font-size:.75rem; cursor:pointer;
+    background:rgba(255,255,255,.08); color:#cfe0ff; border:0; border-radius:7px; padding:4px 12px}
+  .code button:hover{background:rgba(255,255,255,.18)}
+  .code pre{margin:0; background:var(--bg-3); color:#dce6fb; padding:14px 16px; overflow-x:auto;
+    font-family:"IBM Plex Mono",monospace; font-size:12.5px; line-height:1.75; direction:ltr; text-align:left; white-space:pre}
+  .code .com{color:#7fae97}
+
+  /* callouts */
+  .note,.danger{border-radius:var(--radius); padding:16px 18px; margin:20px 0; border:1px solid var(--line); line-height:1.8}
+  .note{background:var(--tg-soft); border-color:rgba(57,183,255,.3)}
+  .danger{background:var(--voice-soft); border-color:var(--voice)}
+  .note b{color:var(--tg)}
+  .danger .t{font-family:"Cairo",sans-serif; font-weight:800; color:var(--voice); display:block; margin-bottom:4px}
+  .danger ul{margin:.4rem 0 0; padding-inline-start:1.35rem}
+  .danger ul li{margin:.35rem 0}
+
+  dl.tshoot{margin:0}
+  dl.tshoot dt{font-family:"Cairo",sans-serif; font-weight:700; margin-top:18px; color:#fff}
+  dl.tshoot dd{margin:2px 0 0; color:var(--muted)}
+
+  ul.cards{list-style:none; margin:14px 0 0; padding:0; display:grid; gap:10px}
+  ul.cards li{background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:12px 16px; color:var(--muted)}
+  ul.cards b{font-family:"Cairo",sans-serif; color:#fff}
+  ul.cards code{color:var(--tg)}
+
+  footer{margin-top:60px; padding-top:24px; border-top:2px solid var(--line); color:var(--muted)}
+  footer b{font-family:"Cairo",sans-serif; color:#fff}
+
+  @media (max-width:520px){ body{font-size:16px} h2{font-size:1.28rem} .st-head h3{font-size:1.1rem} }
+  @media print{ .code button{display:none} }
+</style>
+
+<div class="wrap" dir="rtl">
+  <header>
+    <p class="eyebrow">دليل مبتدئين · خطوة بخطوة</p>
+    <h1>سكرتير يسمع أوامرك الصوتية بالعربية وينفّذها</h1>
+    <p class="lede">دليل يشرح لك — ولو ما عندك أي خبرة برمجية — كيف تبني بوت تلغرام ترسل له
+      رسالة صوتية بالعربية، فيُفرَّغ صوتك على جهازك، ويستلمه كلود، وينفّذ ما طلبت، ويرجّع لك
+      الرد والملفات في نفس المحادثة.</p>
+    <p class="byline">فكرة وبناء وإعداد · م. ريم الفضلي</p>
+    <ul class="chips">
+      <li>ويندوز</li><li>Python + uv</li><li>Claude Code + اشتراك</li>
+      <li>حساب تلغرام</li><li>~2 جيجا مرّة واحدة</li>
+    </ul>
+  </header>
+
+  <div class="solved">
+    <b>المشكلة التي حللتُها:</b> كل صنّاع المحتوى العرب يعانون أن كلود لا يقبل رسائلهم الصوتية
+    بالعربية — يقبلها بالإنجليزية فقط — فيبقون مضطرين للكتابة.
+    <br><b>الحل:</b> يُفرَّغ صوتك العربي محلياً على جهازك بنموذج مفتوح، ويستلم كلود النصّ،
+    فتكلّمه بصوتك بالعربية وينفّذ أوامرك. لم يُطرح هذا الحل قبل الآن.
+  </div>
+
+  <h2><span class="kicker">أولاً</span>كيف يعمل الجسر</h2>
+  <p class="sec-intro">تُرسل رسالة في تلغرام → يلتقطها برنامج صغير على جهازك اسمه
+    <code>bridge.py</code> → إن كانت صوتية يفرّغها إلى نصّ محلياً → يمرّر النصّ إلى كلود
+    كامل الصلاحيات → كلود ينفّذ على جهازك ويرسل لك الرد والملفات عبر تلغرام.</p>
+  <figure class="flow">
+    <svg viewBox="0 0 760 176" role="img" aria-label="مخطط سير العمل">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0L10 5L0 10z" fill="#7f8db0"/>
+        </marker>
+      </defs>
+      <g font-family="Cairo, sans-serif" font-weight="700" font-size="14" text-anchor="middle">
+        <rect x="628" y="54" width="120" height="46" rx="12" fill="var(--voice-soft)" stroke="var(--voice)"/>
+        <text x="688" y="82" fill="#eef2fb">📱 أنت</text>
+        <rect x="470" y="54" width="128" height="46" rx="12" fill="var(--bg-2)" stroke="var(--line-2)"/>
+        <text x="534" y="82" fill="#eef2fb">تلغرام</text>
+        <rect x="300" y="54" width="140" height="46" rx="12" fill="var(--tg-soft)" stroke="var(--tg)"/>
+        <text x="370" y="82" fill="#eef2fb">bridge.py</text>
+        <rect x="132" y="54" width="138" height="46" rx="12" fill="var(--bg-2)" stroke="var(--line-2)"/>
+        <text x="201" y="82" fill="#eef2fb">🤖 كلود</text>
+        <line x1="628" y1="77" x2="600" y2="77" stroke="#7f8db0" marker-end="url(#ar)"/>
+        <line x1="470" y1="77" x2="442" y2="77" stroke="#7f8db0" marker-end="url(#ar)"/>
+        <line x1="300" y1="77" x2="272" y2="77" stroke="#7f8db0" marker-end="url(#ar)"/>
+        <path d="M150 108 L150 138 L660 138 L660 108" fill="none" stroke="#7f8db0" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+        <text x="405" y="158" fill="#9aa7c2" font-size="12.5" font-weight="600">الرد + الملفات</text>
+        <text x="370" y="34" fill="#9aa7c2" font-size="12" font-weight="600">تفريغ صوتي محلي</text>
+      </g>
+    </svg>
+    <figcaption>كل شيء يجري على جهازك. صوتك لا يُرفع إلى أي خدمة خارجية.</figcaption>
+  </figure>
+
+  <h2><span class="kicker">القسم الرئيسي</span>الإعداد التلقائي <span class="pill">مُوصى به</span></h2>
+  <p class="sec-intro">هذا ما يحتاجه معظم الناس. اتبع الخطوات <b>بالترتيب</b>. في الخطوة 6
+    ينفّذ ملفٌ جاهز كل الإعداد بدلاً عنك — تكتفي بلصق ثلاثة مفاتيح.</p>
+
+  <ol class="steps">
+    <li>
+      <div class="st-head"><span class="st-num"></span><h3>ثبّت الأدوات الثلاث</h3></div>
+      <p><b>Python:</b> افتح <a href="https://www.python.org/downloads/">python.org/downloads</a>،
+        نزّل النسخة الأحدث، شغّل المثبّت، و<b>علّم الخيار «Add python.exe to PATH»</b> في أول
+        شاشة، ثم اضغط Install.</p>
+      <p><b>uv</b> (يجلب مكتبات المشروع تلقائياً): افتح <b>PowerShell</b> (اكتب «PowerShell»
+        في قائمة ابدأ)، الصق هذا السطر واضغط Enter:</p>
+      <div class="code"><div class="bar"><span class="name">PowerShell</span><button>نسخ</button></div><pre>powershell -c "irm https://astral.sh/uv/install.ps1 | iex"</pre></div>
+      <p>انتظر حتى يكتب «installed»، ثم أغلق PowerShell وافتحه من جديد.</p>
+      <p><b>Claude Code:</b> ثبّته من موقع Anthropic الرسمي، واتبع تعليمات تثبيت ويندوز.</p>
+    </li>
+
+    <li>
+      <div class="st-head"><span class="st-num"></span><h3>سجّل دخول كلود واحصل على توكن</h3></div>
+      <p>افتح نافذة أوامر (Terminal أو PowerShell)، اكتب هذا واضغط Enter:</p>
+      <div class="code"><div class="bar"><span class="name">Terminal</span><button>نسخ</button></div><pre>claude setup-token</pre></div>
+      <p>يفتح المتصفح: سجّل دخول حسابك واضغط <b>Authorize</b>. ارجع للنافذة، ستجد سطراً يبدأ
+        بـ <code>sk-ant-oat01-</code> — <b>انسخه كاملاً</b> واحفظه مؤقتاً في مفكرة. (صالح سنة.)</p>
+    </li>
+
+    <li>
+      <div class="st-head"><span class="st-num"></span><h3>أنشئ بوت تلغرام</h3></div>
+      <ul>
+        <li>في تلغرام ابحث عن <b>BotFather@</b> (عليه توثيق أزرق) وافتحه.</li>
+        <li>أرسل <code>/newbot</code>. يسألك عن اسم البوت (أي اسم)، ثم عن معرّف (username)
+          يجب أن ينتهي بكلمة <code>bot</code>.</li>
+        <li>يعطيك <b>توكن البوت</b> بالشكل <code>8123456789:AAExxxxxxxxxxxx</code> —
+          <b>انسخه</b> واحفظه.</li>
+        <li>افتح محادثة البوت الجديد واضغط زر <b>Start</b>.</li>
+      </ul>
+    </li>
+
+    <li>
+      <div class="st-head"><span class="st-num"></span><h3>اعرف رقم محادثتك (chat id)</h3></div>
+      <ul>
+        <li>أرسل أي رسالة (مثلاً <code>hi</code>) لبوتك في تلغرام.</li>
+        <li>في المتصفح، ضع توكن بوتك مكان <code>&lt;التوكن&gt;</code> وافتح:</li>
+      </ul>
+      <div class="code"><div class="bar"><span class="name">المتصفح</span><button>نسخ</button></div><pre>https://api.telegram.org/bot&lt;التوكن&gt;/getUpdates</pre></div>
+      <p>في الصفحة ابحث عن <code>"chat":{"id":</code> — الرقم الذي يليه مباشرة هو
+        <b>chat id</b> (قد يكون سالباً للمجموعات). انسخه.</p>
+    </li>
+
+    <li>
+      <div class="st-head"><span class="st-num"></span><h3>حمّل الحزمة المرفقة وفكّ ضغطها</h3></div>
+      <ul>
+        <li>نزّل ملف <code>الجسر-الصوتي.zip</code> المرفق مع هذا الدليل.</li>
+        <li>كليك يمين عليه ← <b>استخراج الكل / Extract All</b> ← Extract.</li>
+        <li>افتح المجلد الناتج. بداخله: <code>server.py</code> · <code>bridge.py</code> ·
+          <code>run-bridge.bat</code> · <code>اعداد.bat</code>.</li>
+      </ul>
+    </li>
+
+    <li>
+      <div class="st-head"><span class="st-num"></span><h3>شغّل الإعداد التلقائي</h3></div>
+      <p><b>انقر ملف <code>اعداد.bat</code> نقرتين.</b> تفتح نافذة سوداء تسألك أربعة أسئلة،
+        الصق الجواب في كل سؤال ثم اضغط Enter (اللصق في النافذة السوداء = كليك يمين):</p>
+      <ol>
+        <li>توكن البوت — من الخطوة 3</li>
+        <li>رقم محادثتك (chat id) — من الخطوة 4</li>
+        <li>توكن كلود — من الخطوة 2</li>
+        <li>مسار مجلد العمل — اضغط Enter للافتراضي (مجلد Downloads)</li>
+      </ol>
+      <p>بعد آخر سؤال يكتب لك ملف <code>run-bridge.bat</code> جاهزاً، ويطبع «تم إنشاء».</p>
+    </li>
+
+    <li>
+      <div class="st-head"><span class="st-num"></span><h3>شغّل الجسر</h3></div>
+      <p><b>انقر <code>run-bridge.bat</code> نقرتين.</b> أول تشغيل ينزّل المكتبات ونموذج
+        التفريغ الصوتي (~دقيقتين، مرّة واحدة فقط — يحتاج إنترنت و~2 جيجا مساحة).</p>
+      <p>عند النجاح تصلك رسالة في تلغرام: <b>«🤖 السكرتير شغّال. كلّمني.»</b></p>
+      <p>اترك النافذة السوداء مفتوحة ما دمت تريد البوت يعمل.</p>
+    </li>
+
+    <li>
+      <div class="st-head"><span class="st-num"></span><h3>جرّب بصوتك</h3></div>
+      <p>في محادثة البوت، اضغط زر المايك وسجّل بالعربية، مثلاً:</p>
+      <p><i>«سوّ لي ملف نصّي فيه: حليب، خبز، بيض — وأرسله لي».</i></p>
+      <p>يفرّغ الجسر صوتك، وينفّذ الطلب على جهازك، ويرسل لك الملف في المحادثة.</p>
+    </li>
+
+    <li>
+      <div class="st-head"><span class="st-num"></span><h3>تشغيل تلقائي مع ويندوز (اختياري)</h3></div>
+      <p>حتى يبدأ الجسر وحده مع كل تشغيل للويندوز، ننسخ «اختصاراً» لملف التشغيل داخل مجلّد
+        «بدء التشغيل»:</p>
+      <ol>
+        <li>اضغط <kbd>Win</kbd>+<kbd>R</kbd>، اكتب <code>shell:startup</code>، واضغط Enter.
+          يفتح مجلّد «بدء التشغيل» — اتركه مفتوحاً.</li>
+        <li>افتح المجلّد الذي فيه ملفات الجسر (<code>run-bridge.bat</code>).</li>
+        <li>كليك يمين على <code>run-bridge.bat</code> ← في ويندوز 11 اختر «إظهار خيارات إضافية»،
+          ثم <b>«إنشاء اختصار / Create shortcut»</b>.</li>
+        <li>يظهر ملف جديد اسمه <code>run-bridge.bat - Shortcut</code> في نفس المجلّد.</li>
+        <li>كليك يمين على هذا الاختصار ← <b>«قص / Cut»</b>.</li>
+        <li>ارجع إلى مجلّد «بدء التشغيل» (الخطوة 1)، كليك يمين في مساحة فارغة ←
+          <b>«لصق / Paste»</b>.</li>
+      </ol>
+      <p>انتهى. من الآن يبدأ الجسر تلقائياً بعد كل تشغيل للويندوز. لإلغاء ذلك لاحقاً: احذف
+        الاختصار من مجلّد «بدء التشغيل».</p>
+    </li>
+  </ol>
+
+  <h2><span class="kicker">اختياري</span>الإعداد اليدوي — لمن يريد أن يفهم</h2>
+  <p class="sec-intro">لست مضطراً لهذا القسم. النتيجة نفسها، لكنه يشرح كل قطعة، ويستبدل
+    الخطوة 6 (ملف <code>اعداد.bat</code>) بتعبئة يدوية.</p>
+
+  <ul class="cards">
+    <li><b><code>server.py</code></b> — خادم MCP صغير. يمنح كلود «يداً» يرسل بها إلى تلغرام:
+      رسائل، ملفات، وصور.</li>
+    <li><b><code>bridge.py</code></b> — البرنامج الذي يظل يعمل. يسمع رسائلك في تلغرام؛ إن كانت
+      صوتية يفرّغها محلياً بنموذج <code>faster-whisper</code> على جهازك، ثم يمرّر النصّ إلى
+      وكيل Claude كامل الصلاحيات، ويعيد لك الرد.</li>
+    <li><b><code>run-bridge.bat</code></b> — يحمل مفاتيحك الثلاثة ويشغّل <code>bridge.py</code>.</li>
+  </ul>
+
+  <ol class="steps manual">
+    <li>
+      <div class="st-head"><span class="st-num"></span><h3>افتح ملف الإعداد بمحرّر نصوص</h3></div>
+      <p>كليك يمين على <code>run-bridge.bat</code> ← <b>Edit</b>. (أو افتح Notepad ثم
+        File ← Open واختر الملف.) لا تفتحه بنقرتين — النقرتان تشغّلانه لا تحرّرانه.</p>
+    </li>
+    <li>
+      <div class="st-head"><span class="st-num"></span><h3>عبّئ المفاتيح الأربعة</h3></div>
+      <p>ضع قيمك بين علامتَي الاقتباس في كل سطر، ثم احفظ بـ <kbd>Ctrl</kbd>+<kbd>S</kbd>:</p>
+      <div class="code"><div class="bar"><span class="name">run-bridge.bat</span><button>نسخ</button></div><pre>set "TELEGRAM_BOT_TOKEN=<span class="com">توكن البوت — الخطوة 3</span>"
+set "TELEGRAM_ALLOWED_CHAT_ID=<span class="com">رقم محادثتك — الخطوة 4</span>"
+set "CLAUDE_CODE_OAUTH_TOKEN=<span class="com">توكن كلود — الخطوة 2</span>"
+set "BRIDGE_WORKSPACE=C:\Users\<span class="com">اسمك</span>\Downloads"</pre></div>
+      <p><code>BRIDGE_WORKSPACE</code> هو المجلد الذي يعمل كلود بداخله (يقرأ ويكتب الملفات هناك).
+        بعد الحفظ، أكمل من الخطوة 7 في القسم الرئيسي.</p>
+    </li>
+    <li>
+      <div class="st-head"><span class="st-num"></span><h3>ما الذي يحدث عند إرسال رسالة صوتية؟</h3></div>
+      <ol>
+        <li>يستقبل <code>bridge.py</code> الرسالة من تلغرام وينزّل ملف الصوت.</li>
+        <li>يفرّغ الصوت إلى نصّ عربي محلياً بنموذج <code>faster-whisper</code> — بلا إنترنت،
+          وبلا رفع الصوت لأي مكان.</li>
+        <li>يرسل النصّ إلى وكيل Claude يعمل بصلاحيات كاملة داخل مجلد العمل.</li>
+        <li>ينفّذ الوكيل الطلب، ويستخدم <code>server.py</code> ليرسل لك أي ملف أو صورة عبر تلغرام.</li>
+        <li>يصلك ردّ الوكيل نصاً في نفس المحادثة.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <div class="danger">
+    <span class="t">⚠️ الأمان — اقرأه قبل التشغيل</span>
+    الوكيل يعمل بوضع <code>bypassPermissions</code>: ينفّذ أوامر على جهازك <b>بدون أي تأكيد</b>.
+    <ul>
+      <li>البوت يرد على <code>chat id</code> واحد فقط (المضبوط في الإعداد). لا تعطّل هذا القيد.</li>
+      <li>لا تشارك توكن البوت. إن تسرّب: <b>Revoke</b> فوراً من BotFather وأنشئ توكناً جديداً.</li>
+      <li>من يصل إلى محادثة تلغرامك يصل إلى جهازك. فعّل التحقق بخطوتين لحسابك.</li>
+      <li>شغّله على جهازك الشخصي فقط، لا على جهاز عمل أو مشترك.</li>
+    </ul>
+  </div>
+
+  <h2>حل المشكلات</h2>
+  <dl class="tshoot">
+    <dt>لم تصلني رسالة «السكرتير شغّال»</dt>
+    <dd>النافذة السوداء أُغلقت أو فيها سطر خطأ. شغّل <code>run-bridge.bat</code> واقرأ آخر
+      سطر — غالباً مفتاح ناقص في الإعداد.</dd>
+    <dt>خطأ فيه <code>401 OAuth ... revoked</code></dt>
+    <dd>توكن كلود منتهٍ أو غير صحيح. نفّذ <code>claude setup-token</code> من جديد وحدّث الإعداد.</dd>
+    <dt>يرد على النص لكن لا يرد على الصوت</dt>
+    <dd>أول رسالة صوتية تأخذ وقتاً لأنها تنزّل النموذج. إن استمر، تأكد من ~2 جيجا مساحة فارغة
+      واتصال إنترنت.</dd>
+    <dt>يرد <code>غير مصرّح</code></dt>
+    <dd><code>chat id</code> في الإعداد لا يطابق رقم محادثتك. أعد الخطوة 4.</dd>
+    <dt>توقّف بعد إعادة تشغيل الجهاز</dt>
+    <dd>الجسر لا يبدأ تلقائياً إلا إذا نفّذت خطوة «تشغيل تلقائي مع ويندوز».</dd>
+    <dt><code>uv</code> أو <code>claude</code> غير معروف</dt>
+    <dd>أغلق نافذة الأوامر وافتحها من جديد بعد التثبيت، أو أعد تشغيل الجهاز.</dd>
+  </dl>
+
+  <h2>محتوى المرفق</h2>
+  <ul class="cards">
+    <li><b><code>voice-bridge-guide.html</code></b> — هذا الدليل.</li>
+    <li><b><code>server.py</code></b> · <b><code>bridge.py</code></b> — ملفات المشروع، جاهزة.</li>
+    <li><b><code>run-bridge.bat</code></b> — تعبّئه بمفاتيحك (يدوياً أو عبر <code>اعداد.bat</code>).</li>
+    <li><b><code>اعداد.bat</code></b> — يسألك المفاتيح ويكتب <code>run-bridge.bat</code> بدلاً عنك.</li>
+    <li><b><code>اقرأني.txt</code></b> — ملخّص سريع.</li>
+  </ul>
+
+  <footer>
+    <p>فكرة وبناء وإعداد · <b>م. ريم الفضلي</b></p>
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll(".code button").forEach(function(b){
+    b.addEventListener("click", function(){
+      var pre = b.closest(".code").querySelector("pre");
+      navigator.clipboard.writeText(pre.innerText).then(function(){
+        var o = b.textContent; b.textContent = "تم النسخ ✓";
+        setTimeout(function(){ b.textContent = o; }, 1600);
+      }).catch(function(){});
+    });
+  });
+</script>

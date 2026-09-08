@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.bridge_offset
+telegram-inbox/
+.venv/
+# لا ترفع نسختك المعبّأة من ملف الإعداد
+run-bridge.local.bat
