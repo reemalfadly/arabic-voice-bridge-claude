@@ -44,6 +44,11 @@
   .solved{background:var(--bg-2); border:1px solid var(--line); border-inline-start:4px solid var(--ok);
     border-radius:14px; padding:18px 20px; margin:26px 0; line-height:1.8}
   .solved b{color:var(--ok)}
+  .repo{display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px;
+    background:var(--tg-soft); border:1px solid rgba(57,183,255,.35); border-radius:14px;
+    padding:14px 18px; margin:20px 0}
+  .repo .lbl{font-family:"Cairo",sans-serif; font-weight:700; color:var(--tg)}
+  .repo a{font-family:"IBM Plex Mono",monospace; font-size:.92rem; word-break:break-all; direction:ltr}
 
   h2{font-family:"Cairo",sans-serif; font-weight:800; font-size:1.5rem; line-height:1.3;
     margin:56px 0 6px; color:#fff}
@@ -135,6 +140,11 @@
     فتكلّمه بصوتك بالعربية وينفّذ أوامرك. لم يُطرح هذا الحل قبل الآن.
   </div>
 
+  <div class="repo">
+    <span class="lbl">المشروع كامل على GitHub:</span>
+    <a href="https://github.com/reemalfadly/arabic-voice-bridge-claude">github.com/reemalfadly/arabic-voice-bridge-claude</a>
+  </div>
+
   <h2><span class="kicker">أولاً</span>كيف يعمل الجسر</h2>
   <p class="sec-intro">تُرسل رسالة في تلغرام → يلتقطها برنامج صغير على جهازك اسمه
     <code>bridge.py</code> → إن كانت صوتية يفرّغها إلى نصّ محلياً → يمرّر النصّ إلى كلود
@@ -215,13 +225,23 @@
     </li>
 
     <li>
-      <div class="st-head"><span class="st-num"></span><h3>حمّل الحزمة المرفقة وفكّ ضغطها</h3></div>
-      <ul>
-        <li>نزّل ملف <code>الجسر-الصوتي.zip</code> المرفق مع هذا الدليل.</li>
-        <li>كليك يمين عليه ← <b>استخراج الكل / Extract All</b> ← Extract.</li>
-        <li>افتح المجلد الناتج. بداخله: <code>server.py</code> · <code>bridge.py</code> ·
-          <code>run-bridge.bat</code> · <code>اعداد.bat</code>.</li>
-      </ul>
+      <div class="st-head"><span class="st-num"></span><h3>حمّل ملفات المشروع من GitHub</h3></div>
+      <p>افتح صفحة المشروع في المتصفح:</p>
+      <div class="code"><div class="bar"><span class="name">المتصفح</span><button>نسخ</button></div><pre>https://github.com/reemalfadly/arabic-voice-bridge-claude</pre></div>
+      <ol>
+        <li>فوق قائمة الملفات على اليمين، اضغط الزر الأخضر المكتوب عليه
+          <b>«‏Code‏»</b> ‏(بجانبه سهم صغير للأسفل).</li>
+        <li>من القائمة المنسدلة اختر <b>«‏Download ZIP‏»</b> (آخر خيار).</li>
+        <li>ينزّل ملف اسمه <code>arabic-voice-bridge-claude-main.zip</code> إلى مجلّد
+          <b>التنزيلات (Downloads)</b>.</li>
+        <li>افتح مجلّد التنزيلات، <b>كليك يمين</b> على الملف المضغوط ←
+          <b>«استخراج الكل / Extract All»</b> ← اختر مكاناً (مثلاً سطح المكتب) ← <b>Extract</b>.</li>
+        <li>افتح المجلّد الناتج <code>arabic-voice-bridge-claude-main</code>. بداخله:
+          <code>server.py</code> · <code>bridge.py</code> · <code>run-bridge.bat</code> ·
+          <code>اعداد.bat</code> · <code>voice-bridge-guide.html</code>.</li>
+      </ol>
+      <p style="color:var(--muted)">تعرف git؟ بدلاً من ذلك:
+        <code>git clone https://github.com/reemalfadly/arabic-voice-bridge-claude.git</code></p>
     </li>
 
     <li>
@@ -343,13 +363,14 @@ set "BRIDGE_WORKSPACE=C:\Users\<span class="com">اسمك</span>\Downloads"</pre
     <dd>أغلق نافذة الأوامر وافتحها من جديد بعد التثبيت، أو أعد تشغيل الجهاز.</dd>
   </dl>
 
-  <h2>محتوى المرفق</h2>
+  <h2>محتوى المشروع</h2>
+  <p class="sec-intro">بعد فكّ ضغط ملف <code>arabic-voice-bridge-claude-main.zip</code> تجد:</p>
   <ul class="cards">
     <li><b><code>voice-bridge-guide.html</code></b> — هذا الدليل.</li>
     <li><b><code>server.py</code></b> · <b><code>bridge.py</code></b> — ملفات المشروع، جاهزة.</li>
     <li><b><code>run-bridge.bat</code></b> — تعبّئه بمفاتيحك (يدوياً أو عبر <code>اعداد.bat</code>).</li>
     <li><b><code>اعداد.bat</code></b> — يسألك المفاتيح ويكتب <code>run-bridge.bat</code> بدلاً عنك.</li>
-    <li><b><code>اقرأني.txt</code></b> — ملخّص سريع.</li>
+    <li><b><code>README.md</code></b> — ملخّص سريع يظهر على صفحة GitHub.</li>
   </ul>
 
   <footer>
